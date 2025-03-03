@@ -1,6 +1,6 @@
 'use strict'
 import Fastify from 'fastify'
-import statusRoutes from './status.route'
+import statusRoutes from './src/status.route'
 
 const fastify = Fastify({
     logger: true
