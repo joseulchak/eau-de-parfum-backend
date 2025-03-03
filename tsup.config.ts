@@ -2,10 +2,10 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entryPoints: ['src/server.ts'],
-  format: ['esm'],
+  format: ['cjs', 'esm'],
   clean: true,
   sourcemap: true,
   minify: false,
-  target: 'node22',
+  target: 'es2022',
   tsconfig: 'tsconfig.json',
 });
