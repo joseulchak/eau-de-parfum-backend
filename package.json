@@ -6,11 +6,13 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start:local": "tsx watch src/server.ts",
+    "start:local": "vercel dev",
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
-    "fastify": "^5.2.1"
+    "@vercel/node": "^5.1.10",
+    "fastify": "^5.2.1",
+    "vercel": "^41.3.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

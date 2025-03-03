@@ -8,12 +8,15 @@ const fastify = Fastify({
 
 fastify.register(statusRoutes)
 
-const start = async () => {
-    try {
-        await fastify.listen({ port: 3000 })
-    } catch (err) {
-        fastify.log.error(err)
-    }
-}
+// const start = async () => {
+//     try {
+//         await fastify.listen({ port: 3000 })
+//     } catch (err) {
+//         fastify.log.error(err)
+//     }
+// }
 
-start()
+export default async function handler(req: any, res: any) {
+    await fastify.ready()
+    fastify.server.emit('request', req, res)
+  }
