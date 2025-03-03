@@ -18,6 +18,7 @@
   "homepage": "https://github.com/joseulchak/eau-de-parfum-backend#readme",
   "description": "",
   "dependencies": {
+    "@types/express": "^5.0.0",
     "express": "^4.21.2"
   }
 }

@@ -1,7 +1,7 @@
 import express from 'express'
 const app = express();
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.use(require('./routes'))
 
 app.listen(5555, () => console.log("Server ready on port 3000."));
 
