@@ -6,12 +6,15 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start:local": "vercel dev",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "dev:vercel": "npm run build && vercel dev --listen 5005",
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "@vercel/node": "^5.1.10",
     "fastify": "^5.2.1",
+    "tsup": "^8.4.0",
     "vercel": "^41.3.0"
   },
   "devDependencies": {

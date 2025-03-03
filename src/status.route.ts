@@ -6,6 +6,6 @@ export default async function statusRoutes(fastify: FastifyInstance) {
     })
 
     fastify.get('/', (request: FastifyRequest, reply: FastifyReply) => {
-        reply.send({ status: "Eau de Parfum" })
+        reply.send({ status: "Eau de Parfum | by: Geicy Meira" })
     })
 }
