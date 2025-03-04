@@ -3,22 +3,21 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joseulchak/eau-de-parfum-backend.git"
+    "start": "node dist/index.js",
+    "dev": "tsc -w & nodemon dist/index.js",
+    "start:ts-node": "ts-node api/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/joseulchak/eau-de-parfum-backend/issues"
-  },
-  "homepage": "https://github.com/joseulchak/eau-de-parfum-backend#readme",
   "description": "",
   "dependencies": {
     "@types/express": "^5.0.0",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
   }
 }
