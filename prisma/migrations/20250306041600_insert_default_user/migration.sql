@@ -1,2 +1,2 @@
 
-alter table User add role text
+ALTER TABLE users ADD COLUMN role TEXT;

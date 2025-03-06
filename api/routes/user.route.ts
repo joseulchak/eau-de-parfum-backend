@@ -6,7 +6,7 @@ const router = Router()
 
 router.post(`${BASE_URL}/user`, async (req: Request, res: Response) => {
     const prisma = new PrismaClient()
-    const newUser = await prisma.user.create({
+    const newUser = await prisma.users.create({
         data: {
             email: 'geicy@geicymeira.com.br',
             name: 'Geicy Meira',

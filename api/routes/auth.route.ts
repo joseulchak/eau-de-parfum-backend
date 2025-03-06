@@ -12,7 +12,7 @@ router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
     const { username, pwd } = req.body as { username: string, pwd: string }
 
     const prisma = new PrismaClient()
-    const user = await prisma.user.findFirst({
+    const user = await prisma.users.findFirst({
         where: {
             email: username
         }
@@ -56,7 +56,7 @@ router.post(`${BASE_URL}/refresh`, async (req: Request, res: Response) => {
         }
 
         const prisma = new PrismaClient()
-        const user: any = await prisma.user.findFirst({
+        const user: any = await prisma.users.findFirst({
             where: {
                 id: decoded.id
             }
