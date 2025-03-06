@@ -9,7 +9,7 @@
     "start:watch": "nodemon api/index.ts",
     "services:up": "docker compose -f api/infra/compose.yaml up -d",
     "services:stop": "docker compose -f api/infra/compose.yaml stop",
-    "services:down": "docker compose -f api/infra/compose.yaml down",
+    "services:down": "docker compose -f api/infra/compose.yaml down"
   },
   "keywords": [],
   "author": "",
