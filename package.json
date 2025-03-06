@@ -5,8 +5,11 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc -w & nodemon dist/index.js",
-    "start:watch": "nodemon api/index.ts"
+    "dev": "npm run services:up && tsc -w & nodemon dist/index.js",
+    "start:watch": "nodemon api/index.ts",
+    "services:up": "docker compose -f api/infra/compose.yaml up -d",
+    "services:stop": "docker compose -f api/infra/compose.yaml stop",
+    "services:down": "docker compose -f api/infra/compose.yaml down",
   },
   "keywords": [],
   "author": "",
@@ -14,10 +17,13 @@
   "description": "",
   "dependencies": {
     "@types/express": "^5.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
     "@types/jsonwebtoken": "^9.0.9",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
