@@ -17,7 +17,7 @@
     "migration:create": "npx prisma migrate dev --create-only",
     "@comment migration:generate":"generates a new prisma migration",
     "migration:generate": "npx prisma generate",
-    "postinstall": "npx prisma migrate deploy"
+    "postinstall:VERIFY THIS COMMAND": "npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
