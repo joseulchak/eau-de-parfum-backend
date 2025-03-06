@@ -1,30 +1,36 @@
 import { BASE_URL } from '../../constants';
 import { Router, Request, Response } from 'express'
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
+import { PrismaClient } from '@prisma/client'
 
 const secretKey = 'secretKey'
-const userCredentials = {
-    id: 1,
-    user: 'geicy',
-    pwd: '123456',
-}
+
 
 const router = Router()
 
 router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
-    const { username, password } = req.body as { username: string, password: string }
+    const { username, pwd } = req.body as { username: string, pwd: string }
 
-    if (password !== userCredentials.pwd || username !== userCredentials.user) {
+    const prisma = new PrismaClient()
+    const user = await prisma.user.findFirst({
+        where: {
+            email: username
+        }
+    })
+    console.log(user)
+
+
+    if (!user || pwd !== user.password) {
         res.status(406).json({
             error: 'invalid credentials'
         })
         return;
     }
 
-    const { pwd, ...userData } = userCredentials
+    const { password, ...userData } = user
 
     const accessToken = jwt.sign(userData, secretKey, { expiresIn: '10m' })
-    const refreshToken = jwt.sign({ userid: userCredentials.id }, secretKey, { expiresIn: '1d' })
+    const refreshToken = jwt.sign({ userid: user.id }, secretKey, { expiresIn: '1d' })
 
     res.cookie('jwt', refreshToken, {
         httpOnly: true,
@@ -43,12 +49,20 @@ router.post(`${BASE_URL}/refresh`, async (req: Request, res: Response) => {
 
     const refreshToken = req.cookies.jwt;
 
-    jwt.verify(refreshToken, secretKey, (err: VerifyErrors | null, decoded: string | JwtPayload | undefined) => {
-        if (err) {
+    jwt.verify(refreshToken, secretKey, async (err: VerifyErrors | null, decoded: any) => {
+        if (err || !decoded) {
             res.status(406).json({ message: 'Unauthorized' })
             return
         }
-        const { pwd, ...userData } = userCredentials
+
+        const prisma = new PrismaClient()
+        const user: any = await prisma.user.findFirst({
+            where: {
+                id: decoded.id
+            }
+        })
+        console.log(user)
+        const { password, ...userData } = user
         const accessToken = jwt.sign(userData, secretKey, { expiresIn: '10m' })
         res.send({ accessToken })
         return

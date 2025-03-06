@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import authRouter from './auth.route'
+import userRouter from './user.route'
 const router = Router()
 
 router.use(function timeLog(req, res, next) {
@@ -16,5 +17,6 @@ router.get('/about', (req, res) => {
 })
 
 router.use(authRouter)
+router.use(userRouter)
 
 export default router
