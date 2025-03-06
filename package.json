@@ -18,7 +18,7 @@
     "@comment migration:generate":"generates a new prisma migration",
     "migration:generate": "npx prisma generate",
     "postinstall:later": "npx prisma migrate deploy",
-    "postinstall": "npx prisma db push"
+    "postinstall": "npx prisma db push --accept-data-loss"
   },
   "keywords": [],
   "author": "",
