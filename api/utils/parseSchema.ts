@@ -1,4 +1,4 @@
-import { genericError } from "./genericError"
+import { genericError } from "./error.middleware"
 import { GEN_INVALIDY_BODY } from "./messages"
 
 export function parseSchema(schemaToParse: any, objectToParse: any) {

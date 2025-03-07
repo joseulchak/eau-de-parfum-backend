@@ -2,8 +2,9 @@ import { BASE_URL } from '../../constants';
 import { Router, Request, Response } from 'express'
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { PrismaClient } from '@prisma/client'
+import { secretKey } from '../utils/constants';
 
-const secretKey = 'secretKey'
+
 
 
 const router = Router()
@@ -29,8 +30,8 @@ router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
 
     const { password, ...userData } = user
 
-    const accessToken = jwt.sign(userData, secretKey, { expiresIn: '10m' })
-    const refreshToken = jwt.sign({ userid: user.id }, secretKey, { expiresIn: '1d' })
+    const accessToken = jwt.sign(userData, secretKey, { expiresIn: '90d' })
+    const refreshToken = jwt.sign({ userid: user.id }, secretKey, { expiresIn: '90d' })
 
     res.cookie('jwt', refreshToken, {
         httpOnly: true,
@@ -63,7 +64,7 @@ router.post(`${BASE_URL}/refresh`, async (req: Request, res: Response) => {
         })
         console.log(user)
         const { password, ...userData } = user
-        const accessToken = jwt.sign(userData, secretKey, { expiresIn: '10m' })
+        const accessToken = jwt.sign(userData, secretKey, { expiresIn: '90d' })
         res.send({ accessToken })
         return
     })
