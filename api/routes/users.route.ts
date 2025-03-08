@@ -1,28 +1,21 @@
-import { Router, Request, Response, NextFunction } from 'express'
-import { PrismaClient } from '@prisma/client';
-import { BASE_URL, saltRounds } from '../utils/constants'
-import { parseSchema } from '../utils/parseSchema'
-import { usersPostSchema } from '../schemas/users.schema'
-import authenticationMiddleware from '../utils/authentication.middleware'
-import bcrypt from 'bcrypt'
+import { Router, Request, Response, NextFunction } from "express";
 
-const router = Router()
+import { BASE_URL } from "../utils/constants";
+import { parseSchema } from "../utils/parseSchema";
+import { usersPostSchema } from "../schemas/users.schema";
+import authenticationMiddleware from "../utils/authentication.middleware";
+import { userService } from "../services/users.service";
 
-router.post(`${BASE_URL}/user`,
-    authenticationMiddleware,
-    async (req: Request, res: Response, next: NextFunction) => {
-        const payload = parseSchema(usersPostSchema, req.body)
+const router = Router();
 
-        const hash = await bcrypt.hash(payload.password, saltRounds)
-        const prisma = new PrismaClient()
-        const newUser = await prisma.users.create({
-            data: {
-                ...payload,
-                password: hash,
-                active: true,
-            }
-        })
-        res.send({ newUser })
-    })
+router.post(
+  `${BASE_URL}/user`,
+  authenticationMiddleware,
+  async (req: Request, res: Response, next: NextFunction) => {
+    const payload = parseSchema(usersPostSchema, req.body);
+    const response = await userService.createUser(payload);
+    res.send(response);
+  },
+);
 
-export default router
+export default router;
