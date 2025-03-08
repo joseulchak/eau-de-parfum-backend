@@ -10,6 +10,18 @@ export const GEN_INTERNAL_SERVER_ERROR: messageType = {
   message: 'Ops! Something went wrong...',
 }
 
+export const GEN_INVALID_CREDENTIALS: messageType = {
+  id: '003',
+  errorCode: 406,
+  message: 'Invalid credentials!',
+}
+
+export const GEN_UNAUTHORIZED: messageType = {
+  id: '004',
+  errorCode: 406,
+  message: 'Unauthorized!',
+}
+
 // MESSAGE UTILS
 type messageType = {
   id: string

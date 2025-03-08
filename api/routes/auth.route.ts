@@ -4,6 +4,8 @@ import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { PrismaClient } from '@prisma/client'
 import { secretKey } from '../utils/constants';
 import bcrypt from 'bcrypt'
+import { genericError } from '../utils/error.middleware';
+import { GEN_INVALID_CREDENTIALS, GEN_UNAUTHORIZED } from '../utils/messages';
 
 
 
@@ -23,10 +25,7 @@ router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
 
     const pwdMatch = await bcrypt.compare(pwd, user?.password ?? '')
     if (!user || !pwdMatch) {
-        res.status(406).json({
-            error: 'invalid credentials'
-        })
-        return;
+        return genericError(GEN_INVALID_CREDENTIALS)
     }
 
     const { password, ...userData } = user
@@ -45,16 +44,14 @@ router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
 
 router.post(`${BASE_URL}/refresh`, async (req: Request, res: Response) => {
     if (!req.cookies?.jwt) {
-        res.status(406).json({ message: 'Unauthorized' })
-        return
+        return genericError(GEN_UNAUTHORIZED)
     }
 
     const refreshToken = req.cookies.jwt;
 
     jwt.verify(refreshToken, secretKey, async (err: VerifyErrors | null, decoded: any) => {
         if (err || !decoded) {
-            res.status(406).json({ message: 'Unauthorized' })
-            return
+            return genericError(GEN_UNAUTHORIZED)
         }
 
         const prisma = new PrismaClient()
