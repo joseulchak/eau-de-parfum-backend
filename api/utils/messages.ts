@@ -4,6 +4,12 @@ export const GEN_INVALIDY_BODY: messageType = {
   message: 'Invalid data',
 }
 
+export const GEN_INTERNAL_SERVER_ERROR: messageType = {
+  id: '002',
+  errorCode: 500,
+  message: 'Ops! Something went wrong...',
+}
+
 // MESSAGE UTILS
 type messageType = {
   id: string

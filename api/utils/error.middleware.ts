@@ -1,4 +1,4 @@
-import { getMessage } from "./messages"
+import { GEN_INTERNAL_SERVER_ERROR, getMessage } from "./messages"
 import { Request, Response, NextFunction } from 'express'
 
 class CustomError extends Error {
@@ -14,9 +14,11 @@ class CustomError extends Error {
 export function genericError(msg: any, params: string[] = []) {
     const errorMessage = getMessage(msg, params, true)
     throw new CustomError(errorMessage.message, errorMessage.statusCode || 500)
+    //throw new Error(errorMessage.message)
 }
 
-export function errorMiddleware(err: Error, req: Request, res: Response, next: NextFunction) {
-    console.error('ERROR', err.stack)
-    res.status(500).send('Something broke!')
+export function errorMiddleware(err: CustomError, req: Request, res: Response, next: NextFunction) {
+    console.error('ERROR', err)
+    res.status(err.errorCode ?? GEN_INTERNAL_SERVER_ERROR.errorCode)
+        .send({message: err.name === 'CustomError' ? err.message : GEN_INTERNAL_SERVER_ERROR.message})
 }

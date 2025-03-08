@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../constants';
+import { BASE_URL } from '../utils/constants';
 import { Router, Request, Response } from 'express'
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { PrismaClient } from '@prisma/client'

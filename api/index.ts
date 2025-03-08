@@ -14,9 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieparser())
 
-app.use(errorMiddleware)
 
 app.use(routes)
+app.use(errorMiddleware);
 app.listen(3000, () => console.log("Server ready on port 3000!."));
 
 export default app
