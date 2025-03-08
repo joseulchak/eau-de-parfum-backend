@@ -3,6 +3,7 @@ import { Router, Request, Response } from 'express'
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { PrismaClient } from '@prisma/client'
 import { secretKey } from '../utils/constants';
+import bcrypt from 'bcrypt'
 
 
 
@@ -20,8 +21,8 @@ router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
     })
     console.log(user)
 
-
-    if (!user || pwd !== user.password) {
+    const pwdMatch = await bcrypt.compare(pwd, user?.password ?? '')
+    if (!user || !pwdMatch) {
         res.status(406).json({
             error: 'invalid credentials'
         })
