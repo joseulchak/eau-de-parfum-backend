@@ -1,22 +1,30 @@
-import { Request, Response, NextFunction } from 'express'
-import jwt, { VerifyErrors } from 'jsonwebtoken'
-import { secretKey } from './constants'
-import { genericError } from './error.middleware'
-import { GEN_UNAUTHORIZED } from './messages'
+import { Request, Response, NextFunction } from "express";
+import jwt, { VerifyErrors } from "jsonwebtoken";
+import { secretKey } from "./constants";
+import { genericError } from "./error.middleware";
+import { GEN_UNAUTHORIZED } from "./messages/messages";
 
-const authenticationMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const accessToken = req.headers['authorization']
+const authenticationMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const accessToken = req.headers["authorization"];
 
-    if(!accessToken){
-        return genericError(GEN_UNAUTHORIZED)
-    }
+  if (!accessToken) {
+    return genericError(GEN_UNAUTHORIZED);
+  }
 
-    jwt.verify(accessToken, secretKey, async(err: VerifyErrors | null, decoded: any) => {
-        if (err || !decoded) {
-            return genericError(GEN_UNAUTHORIZED)
-        }
-        next()
-    })
-}
+  jwt.verify(
+    accessToken,
+    secretKey,
+    async (err: VerifyErrors | null, decoded: any) => {
+      if (err || !decoded) {
+        return genericError(GEN_UNAUTHORIZED);
+      }
+      next();
+    },
+  );
+};
 
-export default authenticationMiddleware
+export default authenticationMiddleware;

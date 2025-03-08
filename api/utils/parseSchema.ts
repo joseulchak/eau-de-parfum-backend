@@ -1,13 +1,13 @@
-import { genericError } from "./error.middleware"
-import { GEN_INVALIDY_BODY } from "./messages"
+import { genericError } from "./error.middleware";
+import { GEN_INVALIDY_BODY } from "./messages/messages";
 
 export function parseSchema(schemaToParse: any, objectToParse: any) {
-    if (!objectToParse) return undefined
-    try {
-        const parsedObject = schemaToParse.parse(objectToParse)
-        return parsedObject
-    } catch (error: any) {
-        console.log(error)
-        genericError(GEN_INVALIDY_BODY)
-    }
+  if (!objectToParse) return undefined;
+  try {
+    const parsedObject = schemaToParse.parse(objectToParse);
+    return parsedObject;
+  } catch (error: any) {
+    console.log(error);
+    genericError(GEN_INVALIDY_BODY);
+  }
 }
