@@ -12,7 +12,7 @@ router.post(
   `${BASE_URL}/user`,
   authenticationMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
-    const payload = parseSchema(usersPostSchema, req.body);
+    const payload = await parseSchema(usersPostSchema, req.body);
     const response = await userService.createUser(payload);
     res.send(response);
   },

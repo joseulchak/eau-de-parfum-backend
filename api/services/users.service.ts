@@ -19,7 +19,9 @@ async function createUser(userPayload: UsersPostSchema) {
     active: true,
   });
 
-  return newUser;
+  const { password, ...response } = newUser;
+
+  return response;
 }
 
 export const userService = {

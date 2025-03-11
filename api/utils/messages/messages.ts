@@ -1,7 +1,7 @@
 export const GEN_INVALIDY_BODY: messageType = {
   id: "001",
   errorCode: 400,
-  message: "Invalid data",
+  message: "Invalid data: {0}",
 };
 
 export const GEN_INTERNAL_SERVER_ERROR: messageType = {

@@ -49,9 +49,19 @@ async function createUser(user: Omit<users, "id">): Promise<users> {
   });
 }
 
+async function deleteTestUsers() {
+  const prisma = new PrismaClient();
+  return await prisma.users.deleteMany({
+    where: {
+      email: "its.an.important.email@gmail.com",
+    },
+  });
+}
+
 export const usersRepository = {
   getOneByEmailAndActive,
   getOneByEmail,
   getOneByIdAndActive,
   createUser,
+  deleteTestUsers,
 };
