@@ -1,6 +1,6 @@
 //let accessToken = "";
 
-import { usersRepository } from "../../api/repositories/users.repository";
+import { usersRepository } from "../../src/repositories/users.repository";
 
 beforeAll(deleteTestUsers);
 afterAll(deleteTestUsers);
