@@ -1,15 +1,14 @@
-import { BASE_URL } from "../utils/constants";
 import { Router, Request, Response } from "express";
 import jwt, { JwtPayload, VerifyErrors } from "jsonwebtoken";
 import { PrismaClient, users } from "@prisma/client";
-import { secretKey } from "../utils/constants";
-import { genericError } from "../utils/error.middleware";
-import { GEN_UNAUTHORIZED } from "../utils/messages/messages";
-import { authService } from "../services/auth.service";
+import { secretKey } from "../../utils/constants";
+import { genericError } from "../../utils/error.middleware";
+import { GEN_UNAUTHORIZED } from "../../utils/messages/messages";
+import { authService } from "../../services/auth.service";
 
 const router = Router();
 
-router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
+router.post("", async (req: Request, res: Response) => {
   const { username, pwd } = req.body as { username: string; pwd: string };
 
   const { refreshToken, accessToken } = await authService.authenticateUser(
@@ -26,7 +25,7 @@ router.post(`${BASE_URL}/auth`, async (req: Request, res: Response) => {
   res.send({ accessToken });
 });
 
-router.post(`${BASE_URL}/refresh`, async (req: Request, res: Response) => {
+router.post("/refresh", async (req: Request, res: Response) => {
   if (!req.cookies?.jwt) {
     return genericError(GEN_UNAUTHORIZED);
   }
